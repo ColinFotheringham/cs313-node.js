@@ -15,7 +15,6 @@ function suma1(req, res) {
 
 
 var attachService = function(app) {
-    //app.get('/svc/greeting', greeting);
     app.post('/svc/add', suma1);
 };
 
