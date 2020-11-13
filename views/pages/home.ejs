@@ -4,17 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Postal Rate Calculator</title>
-
-    <link rel="stylesheet" href="stylesheets/styles.css">
 </head>
 <body>
-    <header>
-
-    </header>
     <main>
         <div class="content-width">
             <h1>Postal Rate Calculator</h1>
-            <form  method="get" action="/process">
+            <form  method="get" action="/calculate">
                 <fieldset>
                     <legend>Inform the weight and choose the type of mail:</legend>
 
@@ -23,7 +18,7 @@
 
                     <label for="typeOfMail">Type of Mail:</label>
                     <select id="typeOfMail" name="typeOfMail">
-                        <option value="not-selected">(Select Your Option)</option>
+                        <option value="not-selected">Select an Option</option>
                         <option value="letterStamped">Letters (Stamped)</option>
                         <option value="letterMetered">Letters (Metered)</option>
                         <option value="largeEnvelope">Large Envelopes (Flats)</option>
@@ -36,10 +31,5 @@
             </form>
         </div>
     </main>
-    <footer>
-
-    </footer>    
-
-    <script src="/javascript/functions.js"></script>
 </body>
 </html>

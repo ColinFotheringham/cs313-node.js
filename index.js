@@ -1,7 +1,7 @@
 const express = require('express')
 const path = require('path')
 const PORT = process.env.PORT || 5000
-const logic = require('./process.js')
+const logic = require('./calculate.js')
 
 express()
   .use(express.static(path.join(__dirname, 'public')))
@@ -9,11 +9,11 @@ express()
   .set('views', path.join(__dirname, 'views'))
   .set('view engine', 'ejs')
   .get('/', (req, res) => res.render('pages/home'))
-  .get('/process', (req, res) => {
+  .get('/calculate', (req, res) => {
 
     let mailWeight = Number(req.query.mailWeight);
     let typeOfMail = req.query.typeOfMail;
-    let result = logic.process(mailWeight, typeOfMail);
+    let result = logic.calculate(mailWeight, typeOfMail);
     let readableType = "";
 
     switch (typeOfMail) {

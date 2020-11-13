@@ -1,4 +1,4 @@
-const process = (mailWeight, typeOfMail) => {
+const calculate = (mailWeight, typeOfMail) => {
   let result = 0;
   let rate = 0;
 
@@ -21,9 +21,8 @@ const process = (mailWeight, typeOfMail) => {
 
   result = mailWeight * rate;
 
-  console.log(result);
   return result;
 
 }
 
-exports.process = process;
+exports.calculate= calculate;
