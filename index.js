@@ -1,31 +1,43 @@
 const express = require('express')
 const path = require('path')
 const PORT = process.env.PORT || 5000
-const app = express()
+const logic = require('./process.js')
 
 express()
   .use(express.static(path.join(__dirname, 'public')))
+  .set('public/javascript', path.join(__dirname, "public/javascript"))
   .set('views', path.join(__dirname, 'views'))
   .set('view engine', 'ejs')
-  .get('/', (req, res) => res.render('pages/index'))
+  .get('/', (req, res) => res.render('pages/home'))
+  .get('/process', (req, res) => {
 
+    let mailWeight = Number(req.query.mailWeight);
+    let typeOfMail = req.query.typeOfMail;
+    let result = logic.process(mailWeight, typeOfMail);
+    let readableType = "";
 
-  app.post('/svc/add', suma1)
+    switch (typeOfMail) {
+      case "letterStamped":
+          readableType = "Letters (Stamped)";
+          break;
+      case "letterMetered":
+          readableType = "Letters (Metered)";       
+          break;
+      case "largeEnvelope":
+          readableType = "Large Envelopes (Flats)";
+          break;
+      case "firstClassPackage":
+          readableType = "First-Class Package Service—Retail";
+          break;
+      default:
+          console.log("Error: No operator selected");
+  }
 
-  suma1(req, res) 
-    var n1 = req.body.letterStamped,
-        n2 = req.body.qty1,
-        n3 = req.body.lettersMetered,
-        n4 = req.body.qty2,
-        n5 = req.body.largeEnvelopes,
-        n6 = req.body.qty3,
-        n7 = req.body.parcels,
-        n8 = req.body.qty4,
-        sum = (parseFloat(n1, 2) * parseFloat(n2, 2)) +
-        (parseFloat(n3, 2) * parseFloat(n4, 2)) +
-        (parseFloat(n5, 2) * parseFloat(n6, 2) + parseFloat(n7, 2) * parseFloat(n8, 2))
-    res.send('<h1>Your amount to pay is: </h1>' + sum )
+    res.redirect('results?value=' + result + '&mailWeight=' + mailWeight + '&readableType=' + readableType)
+  })
 
-
+  .get('/results', (req, res) => {
+    res.render('pages/results', {result: req.query.value, mailWeight: req.query.mailWeight, readableType: req.query.readableType})
+  })
 
   .listen(PORT, () => console.log(`Listening on ${ PORT }`))
